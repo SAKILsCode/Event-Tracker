@@ -1,10 +1,10 @@
 import { addMinutes } from 'date-fns';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { TIMEZONE_OFFSET } from '../constants/timezones';
+import { TIMEZONE_OFFSETS } from '../constants/timezones';
 
 /**
- *
+ * Accepts Timezone and Offset and returns { date, utcDate, offset, timezone }
  * @param {string} timezone - optional | any of UTC, GMT, PST, EST, EDT, BST, MST
  * @param {number} offset - optional | only when timezone is UTC & GMT
  * @returns {object} object - { date, utcDate, offset, timezone }
@@ -17,35 +17,38 @@ const useClock = (timezone, offset = 0) => {
 
   useEffect(() => {
     let date = new Date();
+
+    // get negative offset (Bangladesh is 360 min ahead of UTC time but 'getTimezoneOffset' returns -360)
     const offset = date.getTimezoneOffset();
     date = addMinutes(date, offset);
+
     setUTC(date);
-    setLocalOffset(offset);
+
+    // making localOffset like "useClock" user input offset value like "+6" of "GMT +6"
+    setLocalOffset(-(offset / 60));
   }, []);
 
   useEffect(() => {
     if (utc !== null) {
       if (timezone) {
-        if (timezone === 'UTC' || timezone === 'GMT') {
-          offset = TIMEZONE_OFFSET[timezone] ?? offset * 60;
-        } else {
-          offset = TIMEZONE_OFFSET[timezone] ?? 0;
+        if (timezone !== 'UTC' && timezone !== 'GMT') {
+          offset = TIMEZONE_OFFSETS[timezone] ?? 0;
         }
 
-        const newUTC = addMinutes(utc, offset);
+        if (offset > 12 || offset < -12) {
+          offset = 0;
+        }
+
+        const newUTC = addMinutes(utc, offset * 60);
         setLocalDate(newUTC);
-        setLocalTimezone(timezone);
       } else {
-        const newUTC = addMinutes(utc, -localOffset);
+        const newUTC = addMinutes(utc, localOffset * 60);
         setLocalDate(newUTC);
         const utcString = newUTC.toUTCString().split(' ');
         setLocalTimezone(utcString.pop());
       }
     }
   }, [utc, timezone, offset]);
-
-  // TEST LOG
-  console.log(`${timezone} ${offset} >> `, localDate);
 
   return {
     date: localDate,
