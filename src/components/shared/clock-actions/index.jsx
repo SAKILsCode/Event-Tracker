@@ -1,3 +1,4 @@
+import { Badge } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
@@ -25,7 +26,7 @@ const ClockActions = ({
   const buttonStyle = {
     backgroundColor: '#9e9e9e',
     '&:hover': { backgroundColor: '#78909c' },
-    minWidth: '10rem',
+    minWidth: '5rem',
   };
 
   const handleEdit = () => {
@@ -46,11 +47,7 @@ const ClockActions = ({
     <Box sx={{ width: '100%', '& button': { m: 1 } }}>
       <div>
         {/* Edit Button */}
-        <Button
-          variant='contained'
-          sx={{ ...buttonStyle }}
-          onClick={handleEdit}
-        >
+        <Button variant='contained' sx={buttonStyle} onClick={handleEdit}>
           {baseClock ? 'EDIT BASE CLOCK' : 'EDIT'}
         </Button>
 
@@ -62,11 +59,32 @@ const ClockActions = ({
         ) : (
           <Button
             variant='contained'
-            sx={{ ...buttonStyle }}
+            sx={buttonStyle}
             onClick={() => deleteClock(clock.id)}
           >
             DELETE
           </Button>
+        )}
+      </div>
+      <div>
+        {!baseClock && (
+          <>
+            {/* A dummy component to correct button alignment */}
+            <Badge sx={{ ml: -1 }} />
+            <Button
+              variant='contained'
+              sx={{
+                ...buttonStyle,
+                backgroundColor: '#78909c',
+                minWidth: '11.5rem',
+                mr: '10rem',
+              }}
+              onClick={() => console.log('Event Button Clicked')}
+            >
+              SHOW EVENTS
+            </Button>
+            <Badge badgeContent={4} color='primary' sx={{ mb: 4, ml: -1 }} />
+          </>
         )}
       </div>
 

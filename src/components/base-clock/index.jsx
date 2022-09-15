@@ -19,7 +19,7 @@ const BaseClock = ({ baseClock, updateBaseClock, createClock }) => {
 
   return (
     <Box>
-      <Card sx={{ minWidth: 275, textAlign: 'center' }}>
+      <Card sx={{ minWidth: 275, textAlign: 'center', background: '#f6f6f6' }}>
         <CardContent>
           <ClockDisplay
             badgeText='BASE CLOCK'

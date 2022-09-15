@@ -19,10 +19,11 @@ const ClockListItem = ({
   return (
     <Card
       sx={{
-        maxWidth: 400,
+        maxWidth: 370,
         minWidth: 300,
         textAlign: 'center',
         margin: 4,
+        background: '#e8e8e8',
       }}
     >
       <CardContent>
