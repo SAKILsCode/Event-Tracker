@@ -66,6 +66,7 @@ const AppForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     eventForm ? handleForm(formEvent) : handleClock(formClock);
+    // console.log(formClock);
     closeModal();
   };
 

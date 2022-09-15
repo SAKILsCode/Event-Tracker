@@ -28,8 +28,9 @@ const App = () => {
     setClocks([...clocks, clock]);
   };
   const updateClocks = (updatedClock) => {
+    console.log(updatedClock);
     const updatedClocks = clocks.map((clock) => {
-      if (clock.id === updatedClock) return updatedClock;
+      if (clock.id === updatedClock.id) return updatedClock;
       return clock;
     });
     setClocks(updatedClocks);

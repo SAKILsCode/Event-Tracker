@@ -12,7 +12,7 @@ const ClockDisplay = ({ badgeText, title, date, timezone, offset }) => {
     : (titleStyle = { fontSize: 30, marginBottom: '1.1rem' });
 
   return (
-    <>
+    <Box>
       {badgeText && (
         <Box sx={{ textAlign: 'left' }}>
           <Chip
@@ -45,7 +45,7 @@ const ClockDisplay = ({ badgeText, title, date, timezone, offset }) => {
         {(timezone === 'UTC' || timezone === 'GMT') &&
           (offset > 0 ? ` +${offset}` : offset)}
       </Typography>
-    </>
+    </Box>
   );
 };
 

@@ -43,55 +43,53 @@ const ClockActions = ({
   };
 
   return (
-    <>
-      <Box sx={{ width: '100%', '& button': { m: 1 } }}>
-        <div>
-          {/* Edit Button */}
+    <Box sx={{ width: '100%', '& button': { m: 1 } }}>
+      <div>
+        {/* Edit Button */}
+        <Button
+          variant='contained'
+          sx={{ ...buttonStyle }}
+          onClick={handleEdit}
+        >
+          {baseClock ? 'EDIT BASE CLOCK' : 'EDIT'}
+        </Button>
+
+        {/* Conditionally Create or Delete Clock */}
+        {baseClock ? (
+          <Button variant='contained' sx={buttonStyle} onClick={handleCreate}>
+            CREATE NEW CLOCK
+          </Button>
+        ) : (
           <Button
             variant='contained'
             sx={{ ...buttonStyle }}
-            onClick={handleEdit}
+            onClick={() => deleteClock(clock.id)}
           >
-            {baseClock ? 'EDIT BASE CLOCK' : 'EDIT'}
+            DELETE
           </Button>
+        )}
+      </div>
 
-          {/* Conditionally Create or Delete Clock */}
-          {baseClock ? (
-            <Button variant='contained' sx={buttonStyle} onClick={handleCreate}>
-              CREATE NEW CLOCK
-            </Button>
-          ) : (
-            <Button
-              variant='contained'
-              sx={{ ...buttonStyle }}
-              onClick={() => deleteClock(clock.id)}
-            >
-              DELETE
-            </Button>
-          )}
-        </div>
+      <CustomModal open={modalStatus} handleClose={handleClose}>
+        {editState && (
+          <ClockForm
+            isBaseClock={baseClock}
+            clock={clock}
+            handleClock={updateClock}
+            closeModal={handleClose}
+          />
+        )}
 
-        <CustomModal open={modalStatus} handleClose={handleClose}>
-          {editState && (
-            <ClockForm
-              isBaseClock={baseClock}
-              clock={clock}
-              handleClock={updateClock}
-              closeModal={handleClose}
-            />
-          )}
-
-          {createState && (
-            <ClockForm
-              isCreate
-              isBaseClock={baseClock}
-              handleClock={handleClock}
-              closeModal={handleClose}
-            />
-          )}
-        </CustomModal>
-      </Box>
-    </>
+        {createState && (
+          <ClockForm
+            isCreate
+            isBaseClock={baseClock}
+            handleClock={handleClock}
+            closeModal={handleClose}
+          />
+        )}
+      </CustomModal>
+    </Box>
   );
 };
 export default ClockActions;

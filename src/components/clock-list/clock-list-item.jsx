@@ -4,23 +4,30 @@ import useClock from '../../hooks/useClock';
 import ClockActions from '../shared/clock-actions';
 import ClockDisplay from '../shared/clock-display';
 
-const ClockListItem = ({ baseClock, clock, updateClocks, deleteClock }) => {
+const ClockListItem = ({
+  baseClock,
+  clock,
+  updateClocks,
+  deleteClock,
+  badgeText,
+}) => {
   const { date } = useClock(clock.timezone, clock.offset);
-  console.log(clock);
-  console.log(date);
+  // console.log(clock);
+  // console.log(date);
 
   if (!date) return null;
   return (
     <Card
       sx={{
         maxWidth: 400,
+        minWidth: 300,
         textAlign: 'center',
         margin: 4,
       }}
     >
       <CardContent>
         <ClockDisplay
-          badgeText='LIST CLOCK'
+          badgeText={badgeText}
           title={clock.title}
           date={date}
           timezone={clock.timezone}
@@ -29,7 +36,7 @@ const ClockListItem = ({ baseClock, clock, updateClocks, deleteClock }) => {
       </CardContent>
       <Typography
         variant='h6'
-        sx={{ marginBottom: '0.5rem' }}
+        sx={{ marginBottom: '0.5rem', mx: '0.5rem' }}
         color='darkkhaki'
       >
         {formatDistance(baseClock, date)}{' '}

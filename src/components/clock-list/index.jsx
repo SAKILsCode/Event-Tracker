@@ -39,6 +39,7 @@ const ClockList = ({ baseClock, clocks, updateClocks, deleteClock }) => {
                   clock={clock}
                   updateClocks={updateClocks}
                   deleteClock={deleteClock}
+                  badgeText={`CLOCK ${clocks.indexOf(clock) + 1}`}
                 />
               );
             })}
