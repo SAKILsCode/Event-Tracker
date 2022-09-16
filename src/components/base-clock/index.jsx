@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useEffect } from 'react';
 import useClock from '../../hooks/useClock';
+import useTimer from '../../hooks/useTimer';
 import ClockActions from '../shared/clock-actions';
 import ClockDisplay from '../shared/clock-display';
 
@@ -12,6 +13,7 @@ const BaseClock = ({ baseClock, updateBaseClock, createClock }) => {
     baseClock.timezone,
     baseClock.offset
   );
+  const timer = useTimer(date);
 
   useEffect(() => {
     updateBaseClock({ date, timezone, offset });
@@ -24,7 +26,7 @@ const BaseClock = ({ baseClock, updateBaseClock, createClock }) => {
           <ClockDisplay
             badgeText='BASE CLOCK'
             title={baseClock.title}
-            date={date}
+            date={timer}
             timezone={timezone}
             offset={offset}
           />

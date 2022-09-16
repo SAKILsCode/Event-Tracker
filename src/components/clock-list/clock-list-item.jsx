@@ -1,6 +1,7 @@
 import { Card, CardActions, CardContent, Typography } from '@mui/material';
 import { differenceInMinutes, formatDistance } from 'date-fns';
 import useClock from '../../hooks/useClock';
+import useTimer from '../../hooks/useTimer';
 import ClockActions from '../shared/clock-actions';
 import ClockDisplay from '../shared/clock-display';
 
@@ -12,10 +13,10 @@ const ClockListItem = ({
   badgeText,
 }) => {
   const { date } = useClock(clock.timezone, clock.offset);
-  // console.log(clock);
-  // console.log(date);
+  const timer = useTimer(date);
+  const baseTimer = useTimer(baseClock);
 
-  if (!date) return null;
+  if (!date || !timer) return null;
   return (
     <Card
       sx={{
@@ -30,7 +31,7 @@ const ClockListItem = ({
         <ClockDisplay
           badgeText={badgeText}
           title={clock.title}
-          date={date}
+          date={timer}
           timezone={clock.timezone}
           offset={clock.offset}
         />
@@ -40,9 +41,9 @@ const ClockListItem = ({
         sx={{ marginBottom: '0.5rem', mx: '0.5rem' }}
         color='darkkhaki'
       >
-        {formatDistance(baseClock, date)}{' '}
-        {differenceInMinutes(baseClock, date) < 0 ? 'ahead' : 'behind'} of base
-        clock
+        {formatDistance(baseTimer, timer)}
+        {differenceInMinutes(baseTimer, timer) < 0 ? ' ahead' : ' behind'} of
+        base clock
       </Typography>
       <CardActions>
         <ClockActions
