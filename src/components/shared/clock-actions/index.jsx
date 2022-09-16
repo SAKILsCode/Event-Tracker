@@ -11,6 +11,7 @@ const ClockActions = ({
   updateClock,
   createClock,
   deleteClock,
+  badgeContent = 0,
 }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [editState, setEditState] = useState(false);
@@ -46,6 +47,49 @@ const ClockActions = ({
   return (
     <Box sx={{ width: '100%', '& button': { m: 1 } }}>
       <div>
+        {/* TODO: Implement show event and create event button and functionality */}
+        {!baseClock && (
+          <>
+            <Box sx={{ mb: '-0.5rem' }}>
+              <Button
+                variant='contained'
+                sx={{
+                  ...buttonStyle,
+                  backgroundColor: '#78909c',
+                  minWidth: '11.5rem',
+                }}
+                onClick={() => console.log('Create Event Clicked')}
+              >
+                CREATE EVENT
+              </Button>
+            </Box>
+            <Box>
+              {/* A dummy component to correct button alignment */}
+              <Badge sx={{ ml: -1 }} />
+              <Button
+                disabled={badgeContent === 0 && true}
+                variant='contained'
+                sx={{
+                  ...buttonStyle,
+                  backgroundColor: '#78909c',
+                  minWidth: '11.5rem',
+                  mr: '10rem',
+                }}
+                onClick={() => console.log('Show Event Clicked')}
+              >
+                SHOW EVENTS
+              </Button>
+              <Badge
+                badgeContent={badgeContent ? badgeContent : '0'}
+                color='primary'
+                sx={{ mb: 4, ml: -1 }}
+              />
+            </Box>
+          </>
+        )}
+      </div>
+
+      <div>
         {/* Edit Button */}
         <Button variant='contained' sx={buttonStyle} onClick={handleEdit}>
           {baseClock ? 'EDIT BASE CLOCK' : 'EDIT'}
@@ -64,27 +108,6 @@ const ClockActions = ({
           >
             DELETE
           </Button>
-        )}
-      </div>
-      <div>
-        {!baseClock && (
-          <>
-            {/* A dummy component to correct button alignment */}
-            <Badge sx={{ ml: -1 }} />
-            <Button
-              variant='contained'
-              sx={{
-                ...buttonStyle,
-                backgroundColor: '#78909c',
-                minWidth: '11.5rem',
-                mr: '10rem',
-              }}
-              onClick={() => console.log('Event Button Clicked')}
-            >
-              SHOW EVENTS
-            </Button>
-            <Badge badgeContent={4} color='primary' sx={{ mb: 4, ml: -1 }} />
-          </>
         )}
       </div>
 

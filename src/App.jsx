@@ -70,3 +70,9 @@ const App = () => {
 };
 
 export default App;
+//TODO: ClockAction - implement Create event and Show event button and func
+//TODO: EventList - Show all event list instead of clock list
+//TODO: EventList - Show each event list inside clock card
+//TODO: EventListItem - (EventActions + EventDisplay) Show each event in details
+//TODO: EventActions - contains edit ans delete button and their functionalities
+//TODO: EventDisplay - display information (title, time, timezone, description)

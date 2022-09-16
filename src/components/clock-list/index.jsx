@@ -4,7 +4,7 @@ import ClockListItem from './clock-list-item';
 
 const ClockList = ({ baseClock, clocks, updateClocks, deleteClock }) => {
   return (
-    <Container maxWidth='lg' alignItems='center'>
+    <Container maxWidth='lg'>
       <Typography
         sx={{
           fontSize: 30,
@@ -25,14 +25,21 @@ const ClockList = ({ baseClock, clocks, updateClocks, deleteClock }) => {
             sx={{
               fontSize: 30,
               margin: '3.5rem',
-              textAlign: 'center',
+              mx: 'auto',
             }}
           >
             // Clock List is Empty
           </Typography>
         ) : (
           clocks.map((clock) => (
-            <Grid key={clock.id} xs={12} md={6} lg={4} sx={{ margin: 'auto' }}>
+            <Grid
+              key={clock.id}
+              item
+              xs={12}
+              md={6}
+              lg={4}
+              sx={{ margin: 'auto' }}
+            >
               <ClockListItem
                 key={clock.id}
                 baseClock={baseClock}
